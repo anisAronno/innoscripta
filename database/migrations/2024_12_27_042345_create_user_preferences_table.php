@@ -17,6 +17,7 @@ return new class extends Migration
             $table->json('preferred_sources')->nullable();
             $table->json('preferred_categories')->nullable();
             $table->json('preferred_authors')->nullable();
+            $table->integer('articles_per_page')->default(10);
             $table->timestamps();
     
         });

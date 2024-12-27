@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('source_id')->constrained()->onDelete('cascade');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('content');
             $table->string('author')->nullable();
             $table->string('url')->unique();

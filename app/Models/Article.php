@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -14,6 +15,7 @@ class Article extends Model
         'source_id',
         'title',
         'content',
+        'slug',
         'author',
         'url',
         'image_url',
@@ -26,6 +28,17 @@ class Article extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($category) {
+            $slug = Str::slug($category->name);
+            $count = static::where('slug', 'like', "{$slug}%")->count();
+            $category->slug = $count ? "{$slug}-{$count}" : $slug;
+        });
     }
 
     public function source()

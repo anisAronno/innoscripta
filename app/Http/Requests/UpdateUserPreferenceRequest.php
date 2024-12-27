@@ -7,14 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateUserPreferenceRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -22,7 +14,13 @@ class UpdateUserPreferenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'preferred_sources' => 'array',
+            'preferred_sources.*' => 'exists:sources,id',
+            'preferred_categories' => 'array',
+            'preferred_categories.*' => 'exists:categories,id',
+            'preferred_authors' => 'array',
+            'preferred_authors.*' => 'string',
+            'articles_per_page' => 'integer|min:5|max:100',
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserPreference;
 use Illuminate\Database\Seeder;
 
 class UserPreferenceSeeder extends Seeder
@@ -12,6 +12,6 @@ class UserPreferenceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        UserPreference::factory()->count(50)->create();
     }
 }

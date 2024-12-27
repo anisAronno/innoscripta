@@ -64,8 +64,7 @@ class NewsAggregatorService
         $categoryIds = [];
         foreach ($articleData['categories'] as $categoryName) {
             $category = Category::firstOrCreate(
-                ['name' => $categoryName],
-                ['slug' => str($categoryName)->slug()]
+                ['name' => $categoryName]
             );
             $categoryIds[] = $category->id;
         }

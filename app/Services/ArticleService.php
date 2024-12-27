@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleService
 {
-    public function getFilteredArticles(array $filters)
+    public function getFilteredArticles(array $filters): LengthAwarePaginator
     {
         $query = Article::with(['source', 'categories'])
             ->when(isset($filters['search']), function ($query) use ($filters) {
@@ -29,26 +30,26 @@ class ArticleService
                 $query->where('published_at', '<=', $filters['date_to']);
             });
 
-        return $query->latest('published_at')->paginate(20);
+        return $query->latest('published_at')->paginate($filters['per_page'] ?? 20);
     }
 
     public function getPersonalizedFeed(User $user)
     {
         $preferences = $user->preferences;
-        
+
         return Article::with(['source', 'categories'])
-            ->when(!empty($preferences->preferred_sources), function ($query) use ($preferences) {
+            ->when(! empty($preferences->preferred_sources), function ($query) use ($preferences) {
                 $query->whereIn('source_id', $preferences->preferred_sources);
             })
-            ->when(!empty($preferences->preferred_categories), function ($query) use ($preferences) {
+            ->when(! empty($preferences->preferred_categories), function ($query) use ($preferences) {
                 $query->whereHas('categories', function ($q) use ($preferences) {
                     $q->whereIn('id', $preferences->preferred_categories);
                 });
             })
-            ->when(!empty($preferences->preferred_authors), function ($query) use ($preferences) {
+            ->when(! empty($preferences->preferred_authors), function ($query) use ($preferences) {
                 $query->whereIn('author', $preferences->preferred_authors);
             })
             ->latest('published_at')
-            ->paginate(20);
+            ->paginate($preferences->articles_per_page ?? 20);
     }
 }

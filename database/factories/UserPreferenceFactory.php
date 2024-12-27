@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Source;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class UserPreferenceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => 1,
+            'preferred_sources' => [Source::inRandomOrder()->first()->id],
+            'preferred_categories' => [],
+            'preferred_authors' => [],
+            'articles_per_page' => 20,
         ];
     }
 }

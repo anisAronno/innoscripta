@@ -20,8 +20,8 @@ class SourceResource extends JsonResource
             'api_identifier' => $this->api_identifier,
             'is_active' => $this->is_active,
             'articles_count' => $this->when($this->articles_count !== null, $this->articles_count),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

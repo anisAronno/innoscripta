@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\SavedArticle;
 use Illuminate\Database\Seeder;
 
 class SavedArticleSeeder extends Seeder
@@ -12,6 +12,6 @@ class SavedArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        SavedArticle::factory()->count(50)->create();
     }
 }
