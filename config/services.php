@@ -45,4 +45,9 @@ return [
         'url' => env('GUARDIAN_URL', 'https://content.guardianapis.com'),
     ],
 
+    'reuters' => [
+        'key' => env('REUTERS_KEY'),
+        'url' => env('REUTERS_URL', 'https://api.reuters.com'),
+    ],
+
 ];

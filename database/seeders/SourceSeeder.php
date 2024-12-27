@@ -24,6 +24,13 @@ class SourceSeeder extends Seeder
                 'api_key' => config('services.guardian.key'),
                 'is_active' => true,
             ],
+            [
+                'name' => 'Reuters',
+                'api_identifier' => 'reuters',
+                'base_url' => config('services.reuters.url'),
+                'api_key' => config('services.reuters.key'),
+                'is_active' => true,
+            ],
         ];
 
         foreach ($sources as $source) {
