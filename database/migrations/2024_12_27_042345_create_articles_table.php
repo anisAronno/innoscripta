@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('external_id')->unique();
             $table->timestamps();
         });
-    
+
     }
 
     /**

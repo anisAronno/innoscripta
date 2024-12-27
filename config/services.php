@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'newsapi' => [
+        'key' => env('NEWSAPI_KEY'),
+        'url' => env('NEWSAPI_URL', 'https://newsapi.org'),
+    ],
+
+    'guardian' => [
+        'key' => env('GUARDIAN_KEY'),
+        'url' => env('GUARDIAN_URL', 'https://content.guardianapis.com'),
+    ],
+
 ];

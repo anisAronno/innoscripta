@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ProfileUpdateRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
