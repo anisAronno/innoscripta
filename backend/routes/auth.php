@@ -42,6 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/profile', 'destroy');
     });
 
+    //me
+    Route::get('/me', function () {
+        return authUser();
+    });
+
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
 });
