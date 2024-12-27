@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function preferences()
+    {
+        return $this->hasOne(UserPreference::class);
+    }
+
+    public function savedArticles()
+    {
+        return $this->belongsToMany(Article::class, 'saved_articles');
+    }
 }
