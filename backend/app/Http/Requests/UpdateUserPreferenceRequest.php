@@ -18,8 +18,6 @@ class UpdateUserPreferenceRequest extends FormRequest
             'preferred_sources.*' => 'exists:sources,id',
             'preferred_categories' => 'array',
             'preferred_categories.*' => 'exists:categories,id',
-            'preferred_authors' => 'array',
-            'preferred_authors.*' => 'string',
             'articles_per_page' => 'integer|min:5|max:100',
         ];
     }

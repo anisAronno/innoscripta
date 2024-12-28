@@ -10,12 +10,11 @@ class UserPreference extends Model
     /** @use HasFactory<\Database\Factories\UserPreferenceFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'preferred_sources', 'preferred_categories', 'preferred_authors', 'articles_per_page'];
+    protected $fillable = ['user_id', 'preferred_sources', 'preferred_categories',  'articles_per_page'];
 
     protected $casts = [
         'preferred_sources' => 'array',
         'preferred_categories' => 'array',
-        'preferred_authors' => 'array',
         'articles_per_page' => 'integer'
     ];
 

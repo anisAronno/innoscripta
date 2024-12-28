@@ -14,7 +14,6 @@ class UserPreferenceService
             $user->preferences->update([
                 'preferred_sources' => $data['preferred_sources'] ?? [],
                 'preferred_categories' => $data['preferred_categories'] ?? [],
-                'preferred_authors' => $data['preferred_authors'] ?? []
             ]);
             
             return $user->preferences->fresh();

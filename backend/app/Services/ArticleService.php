@@ -51,9 +51,6 @@ class ArticleService
                     $q->whereIn('id', $preferences->preferred_categories);
                 });
             })
-            ->when(! empty($preferences->preferred_authors), function ($query) use ($preferences) {
-                $query->whereIn('author', $preferences->preferred_authors);
-            })
             ->latest('published_at')
             ->paginate($perPage, ['*'], 'page', $page);
     }

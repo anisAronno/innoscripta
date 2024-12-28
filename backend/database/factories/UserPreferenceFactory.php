@@ -21,7 +21,6 @@ class UserPreferenceFactory extends Factory
             'user_id' => 1,
             'preferred_sources' => [Source::inRandomOrder()->first()->id],
             'preferred_categories' => [],
-            'preferred_authors' => [],
             'articles_per_page' => 20,
         ];
     }

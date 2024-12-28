@@ -29,7 +29,6 @@ class RegisteredUserController extends Controller
             $user->preferences()->create([
                 'preferred_sources' => [],
                 'preferred_categories' => [],
-                'preferred_authors' => [],
             ]);
 
             $freshUser = $user->fresh();

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->json('preferred_sources')->nullable();
             $table->json('preferred_categories')->nullable();
-            $table->json('preferred_authors')->nullable();
             $table->integer('articles_per_page')->default(10);
             $table->timestamps();
     
