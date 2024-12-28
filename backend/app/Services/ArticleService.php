@@ -10,6 +10,9 @@ class ArticleService
 {
     public function getFilteredArticles(array $filters): LengthAwarePaginator
     {
+        $perPage = $filters['limit'] ?? 20;
+        $page = $filters['page'] ?? 1;
+
         $query = Article::with(['source', 'categories'])
             ->when(isset($filters['search']), function ($query) use ($filters) {
                 $query->where('title', 'like', "%{$filters['search']}%")
@@ -30,12 +33,14 @@ class ArticleService
                 $query->where('published_at', '<=', $filters['date_to']);
             });
 
-        return $query->latest('published_at')->paginate($filters['per_page'] ?? 20);
+        return $query->latest('published_at')->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public function getPersonalizedFeed(User $user)
+    public function getPersonalizedFeed(User $user, array $request = [])
     {
         $preferences = $user->preferences;
+        $perPage = $request['limit'] ?? $preferences->articles_per_page ?? 20;
+        $page = $request['page'] ?? 1;
 
         return Article::with(['source', 'categories'])
             ->when(! empty($preferences->preferred_sources), function ($query) use ($preferences) {
@@ -50,6 +55,6 @@ class ArticleService
                 $query->whereIn('author', $preferences->preferred_authors);
             })
             ->latest('published_at')
-            ->paginate($preferences->articles_per_page ?? 20);
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 }

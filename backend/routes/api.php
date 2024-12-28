@@ -11,7 +11,7 @@ Route::prefix('v1')->group(function () {
 
     // Public Routes
     Route::get('articles', [ArticleController::class, 'index']);
-    Route::get('articles/{article}', [ArticleController::class, 'show']);
+    Route::get('articles/{article:slug}', [ArticleController::class, 'show']);
     Route::get('categories', [CategoryController::class, 'index']);
 
     Route::get('sources', [SourceController::class, 'index']);

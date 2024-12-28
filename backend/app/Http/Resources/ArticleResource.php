@@ -16,7 +16,7 @@ class ArticleResource extends JsonResource
             'slug' => $this->slug,
             'url' => $this->url,
             'image_url' => $this->image_url,
-            'published_at' => $this->published_at,
+            'published_at' => $this->published_at->diffForHumans(),
             'content' => $this->content,
             'is_active' => $this->is_active,
             'source' => new SourceResource($this->whenLoaded('source')),

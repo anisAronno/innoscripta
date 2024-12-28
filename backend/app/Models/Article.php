@@ -34,10 +34,10 @@ class Article extends Model
     {
         parent::boot();
 
-        static::creating(function ($category) {
-            $slug = Str::slug($category->name);
+        static::creating(function ($article) {
+            $slug = Str::slug($article->title);
             $count = static::where('slug', 'like', "{$slug}%")->count();
-            $category->slug = $count ? "{$slug}-{$count}" : $slug;
+            $article->slug = $count ? "{$slug}-{$count}" : $slug;
         });
     }
 
