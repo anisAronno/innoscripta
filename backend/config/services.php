@@ -50,4 +50,9 @@ return [
         'url' => env('REUTERS_URL', 'https://api.reuters.com'),
     ],
 
+    'bbc' => [
+        'key' => env('BBC_KEY'),
+        'url' => env('BBC_URL', 'https://api.bbc.co.uk/news'),
+    ],
+
 ];

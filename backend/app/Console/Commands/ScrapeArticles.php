@@ -6,6 +6,7 @@ use App\Services\NewsAggregatorService;
 use App\Services\NewsSource\GuardianSource;
 use App\Services\NewsSource\NewsAPISource;
 use App\Services\NewsSource\ReutersSource;
+use App\Services\NewsSource\BBCSource;
 use Illuminate\Console\Command;
 
 class ScrapeArticles extends Command
@@ -30,6 +31,11 @@ class ScrapeArticles extends Command
         $aggregator->registerSource('reuters', new ReutersSource([
             'api_key' => config('services.reuters.key'),
             'base_url' => config('services.reuters.url'),
+        ]));
+
+        $aggregator->registerSource('bbc', new BBCSource([
+            'api_key' => config('services.bbc.key'),
+            'base_url' => config('services.bbc.url'),
         ]));
 
         // Run aggregation

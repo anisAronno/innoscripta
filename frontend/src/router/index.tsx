@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import DashboardRoute from './DashboardRoute';
 import FrontendRoute from './FrontendRoute';
 import GuestRoute from './GuestRoute';
+import Signup from '../pages/Signup';
 
 const routes: RouteObject[] = [
   {
@@ -27,6 +28,10 @@ const routes: RouteObject[] = [
     path: 'login',
     element: <GuestRoute component={Login} />,
   },
+  {
+    path: 'signup',
+    element: <GuestRoute component={Signup} />,
+  }
 ];
 
 const router = createBrowserRouter(routes);

@@ -2,6 +2,7 @@
 
 namespace App\Services\NewsSource;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class ReutersSource implements NewsSourceInterface
@@ -12,6 +13,9 @@ class ReutersSource implements NewsSourceInterface
 
     public function __construct(private array $config)
     {
+        if (! isset($config['api_key']) || ! isset($config['base_url'])) {
+            throw new Exception('Reuters News API configuration is incomplete. Required: api_key and base_url');
+        }
         $this->apiKey = $config['api_key'];
         $this->baseUrl = $config['base_url'];
     }

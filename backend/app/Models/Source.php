@@ -12,6 +12,15 @@ class Source extends Model
 
     protected $fillable = ['name', 'api_identifier', 'base_url', 'api_key', 'is_active'];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'api_key',
+    ];
+
     public function articles()
     {
         return $this->hasMany(Article::class);

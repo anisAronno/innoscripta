@@ -2,6 +2,7 @@
 
 namespace App\Services\NewsSource;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class GuardianSource implements NewsSourceInterface
@@ -12,6 +13,10 @@ class GuardianSource implements NewsSourceInterface
 
     public function __construct(private array $config)
     {
+        if (! isset($config['api_key']) || ! isset($config['base_url'])) {
+            throw new Exception('Guardian News API configuration is incomplete. Required: api_key and base_url');
+        }
+
         $this->apiKey = $config['api_key'];
         $this->baseUrl = $config['base_url'];
     }

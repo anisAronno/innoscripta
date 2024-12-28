@@ -31,6 +31,13 @@ class SourceSeeder extends Seeder
                 'api_key' => config('services.reuters.key'),
                 'is_active' => true,
             ],
+            [
+                'name' => 'BBC News',
+                'api_identifier' => 'bbc', 
+                'base_url' => config('services.bbc.url'),
+                'api_key' => config('services.bbc.key'),
+                'is_active' => true,
+            ],
         ];
 
         foreach ($sources as $source) {

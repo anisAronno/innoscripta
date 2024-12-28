@@ -1,27 +1,7 @@
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { AuthContextType, AuthProviderProps, User } from '../types/auth.types';
-
-const API_URL = 'http://innoscripta.test';
-
-// Create axios instance
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
-});
-
-// Add request interceptor to add token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+import api  from '../utils/api.js';
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [currentUser, setUser] = useState<User | null>(null);

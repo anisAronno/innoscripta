@@ -9,7 +9,9 @@ const Header: React.FC = () => {
   const { currentUser } = useAuth();
 
   const isActive = (path: string) => {
-    return location.pathname === path ? 'text-blue-400' : 'hover:text-gray-300 text-gray-50';
+    return location.pathname === path
+      ? 'text-blue-400'
+      : 'hover:text-gray-300 text-gray-50';
   };
 
   const toggleMenu = () => {
@@ -72,34 +74,6 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/about"
-                className={isActive('/about')}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/projects"
-                className={isActive('/projects')}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className={isActive('/contact')}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-            </li>
-
-            <li>
               {currentUser ? (
                 <Link
                   to="/dashboard"
@@ -109,13 +83,22 @@ const Header: React.FC = () => {
                   Admin Panel
                 </Link>
               ) : (
-                <Link
-                  to="/login"
-                  className={isActive('/login')}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
+                <span className='flex space-x-4'>
+                  <Link
+                    to="/login"
+                    className={isActive('/login')}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className={isActive('/signup')}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Signup
+                  </Link>
+                </span>
               )}
             </li>
           </ul>
