@@ -1,61 +1,96 @@
-# Anichur Portfolio Website
+# News Aggregator
 
-Welcome to my personal portfolio website built with React! This project showcases my work, skills, and experiences in a modern, responsive web application.
-
-## Features
-
-- 🚀 Modern React-based portfolio
-- 💫 Responsive design for all devices
-- 🎨 Clean and minimalist UI/UX
-- 📱 Mobile-first approach
-- ⚡ Fast loading and performance optimized
-
-## Tech Stack
-
-- React.js
-- CSS3/SCSS
-- JavaScript (ES6+)
-- React Router
-- Framer Motion (for animations)
-
-## Installation
-
-1. Clone the repository
-```bash
-git clone https://github.com/anisAronno/anichur-portfolio.git
-cd anichur-portfolio
+## 📁 Directory Structure
+```
+├── backend/
+│   ├── app/
+│   ├── config/
+│   ├── database/
+│   ├── routes/
+│   └── tests/
+└── frontend/
+    ├── src/
+    ├── public/
+    └── tests/
 ```
 
-2. Install dependencies
+## 🚀 Quick Start
+
+### Backend
 ```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
+
+### Frontend
+```bash
+cd frontend
 npm install
+cp .env.example .env.local
+npm run dev
 ```
 
-3. Start the development server
+## ⚙️ Tech Stack
+- Backend: Laravel 10.x, PHP 8.1+
+- Frontend: React 18, TypeScript
+- Database: MySQL/PostgreSQL
+- API: RESTful
+
+## 🔧 Configuration
+
+### Backend ENV
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=news_aggregator
+DB_USERNAME=root
+DB_PASSWORD=
+
+NEWS_API_KEY=
+GUARDIAN_API_KEY=
+REUTERS_API_KEY=
+```
+
+### Frontend ENV
+```
+VITE_API_URL=http://localhost:8000
+VITE_APP_NAME="News Aggregator"
+```
+
+## 🧪 Testing
+
+### Backend Tests
 ```bash
-npm start
+cd backend
+php artisan test
 ```
 
-## Project Structure
-
-```
-anichur-portfolio/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── assets/
-│   └── styles/
-├── public/
-└── README.md
+### Frontend Tests
+```bash
+cd frontend
+npm run test
 ```
 
-## Contact
+## 📝 API Endpoints
 
-- Website: [https://anichur.com]
-- Email: [contact@anichur.com]
-- LinkedIn: [https://www.linkedin.com/in/anisaronno]
-- GitHub: [https://github.com/anisAronno]
+### Articles
+- GET /api/articles
+- GET /api/articles/{id}
+- GET /api/articles/search
 
-## License
+### Categories
+- GET /api/categories
+- GET /api/categories/{id}/articles
 
-MIT License
+### Auth
+- POST /api/auth/login
+- POST /api/auth/register
+- POST /api/auth/logout
+
+## 🔐 License
+MIT
