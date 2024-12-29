@@ -22,11 +22,18 @@ export interface Article {
   updated_at: string;
 }
 
-export interface ApiResponse {
-  data: Article[];
+export interface ApiResponse<T> {
+  data: T;
   meta: {
     current_page: number;
     last_page: number;
     total: number;
   };
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  articles_count: number;
 }

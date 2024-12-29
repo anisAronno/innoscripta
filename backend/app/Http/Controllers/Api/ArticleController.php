@@ -48,15 +48,22 @@ class ArticleController extends Controller
 
     public function personalizedFeed(Request $request): JsonResponse
     {
-        $userId = $request->user()->id;
-        $cacheKey = 'feed:'.$userId;
+        try {
+            $userId = $request->user()->id;
+            $cacheKey = 'feed:'.$userId.md5(json_encode($request->all()));
 
-        $articles = Cache::tags(['articles', 'personalized', "user-{$userId}"])->remember($cacheKey, self::PERSONALIZED_CACHE_TTL, function () use ($request) {
-            return $this->articleService->getPersonalizedFeed($request->user());
-        });
+            $articles = Cache::tags(['articles', 'personalized', "user-{$userId}"])->remember($cacheKey, self::PERSONALIZED_CACHE_TTL, function () use ($request) {
+                return $this->articleService->getPersonalizedFeed($request->user(), $request->all());
+            });
 
-        return ArticleResource::collection($articles)->additional([
-            'message' => 'Personalized feed retrieved successfully',
-        ])->response();
+            return ArticleResource::collection($articles)->additional([
+                'message' => 'Personalized feed retrieved successfully',
+            ])->response();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'An error occurred while fetching personalized feed',
+                'error' => $th->getMessage(),
+            ], 400);
+        }
     }
 }

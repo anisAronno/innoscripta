@@ -42,16 +42,34 @@ class ArticleService
         $perPage = $request['limit'] ?? $preferences->articles_per_page ?? 20;
         $page = $request['page'] ?? 1;
 
-        return Article::with(['source', 'categories'])
-            ->when(! empty($preferences->preferred_sources), function ($query) use ($preferences) {
-                $query->whereIn('source_id', $preferences->preferred_sources);
-            })
-            ->when(! empty($preferences->preferred_categories), function ($query) use ($preferences) {
-                $query->whereHas('categories', function ($q) use ($preferences) {
-                    $q->whereIn('id', $preferences->preferred_categories);
-                });
-            })
-            ->latest('published_at')
+        $query = Article::with(['source', 'categories']);
+
+        // Handle source filtering
+        if (isset($request['sources']) && ! empty($request['sources'])) {
+            $sourceIds = is_array($request['sources'])
+                ? $request['sources']
+                : explode(',', $request['sources']);
+            $query->whereIn('source_id', $sourceIds);
+        } elseif (! empty($preferences->preferred_sources)) {
+            $query->whereIn('source_id', $preferences->preferred_sources);
+        }
+
+        // Handle category filtering
+        if (isset($request['categories']) && ! empty($request['categories'])) {
+            $categoryIds = is_array($request['categories'])
+                ? $request['categories']
+                : explode(',', $request['categories']);
+
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
+            });
+        } elseif (! empty($preferences->preferred_categories)) {
+            $query->whereHas('categories', function ($q) use ($preferences) {
+                $q->whereIn('categories.id', $preferences->preferred_categories);
+            });
+        }
+
+        return $query->latest('published_at')
             ->paginate($perPage, ['*'], 'page', $page);
     }
 }
