@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "721eb478-7a8f-49d7-be6c-595f780e0951",
+		"name": "News aggregator",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15228368"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Profile Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Add your name in the body\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "### GET /api/profile\n\nThis endpoint is used to retrieve profile information.\n\n#### Request\n\n- Method: GET\n    \n- Base URL: {{base_url}}\n    \n- Headers:\n    \n    - Content-Type: application/json\n        \n\n#### Response\n\n- Status: 200 OK\n    \n- Content-Type: application/json\n    \n- { \"id\": 0, \"name\": \"\", \"email\": \"\", \"email_verified_at\": null, \"status\": \"\", \"gender\": null, \"is_admin\": 0, \"deleted_at\": null, \"created_at\": \"\", \"updated_at\": \"\", \"isDeletable\": true, \"isEditable\": true}\n    \n\nThis response includes profile information such as `id`, `name`, `email`, `status`, `gender`, `is_admin`, `deleted_at`, `created_at`, `updated_at`, `isDeletable`, and `isEditable`.\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "### API Request Description\n\nThis is a POST request to the `{{base_url}}/api/login` endpoint to authenticate a user. The request body should be in JSON format and include the user's email and password.\n\n#### Request Body\n\n- `email`: (string) The user's email address.\n    \n- `password`: (string) The user's password.\n    \n\n#### Response\n\nUpon a successful request, the API returns a `200 OK` response with a JSON object containing the following fields:\n\n- `status`: (string) The status of the response.\n    \n- `message`: (string) A message related to the response.\n    \n- `user`: (object) An object containing user details including id, name, email, email_verified_at, status, gender, is_admin, deleted_at, created_at, updated_at, isDeletable, and isEditable.\n    \n- `token`: (string) A token for authentication.\n    \n\n#### Headers\n\n- `Content-Type`: application/json\n    \n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Anichur Rahaman",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "anichur2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "### Register User\n\nThis endpoint is used to register a new user.\n\n#### Request\n\n- Method: `POST`\n    \n- URL: `{{base_url}}/api/register`\n    \n- Headers:\n    \n    - Content-Type: `application/json`\n        \n- { \"name\": \"Add your name in the body\", \"email\": \"anichura2@gmail.com\", \"password\": \"password\", \"password_confirmation\": \"password\"}\n    \n\n#### Response\n\n- Status: `201 Created`\n    \n- Headers:\n    \n    - Content-Type: `application/json`\n        \n- { \"status\": \"\", \"message\": \"\", \"user\": { \"name\": \"\", \"email\": \"\", \"updated_at\": \"\", \"created_at\": \"\", \"id\": 0, \"isDeletable\": true, \"isEditable\": true }, \"token\": \"\"}\n    \n\n#### Example\n\n``` json\n// Request\n{\n  \"name\": \"Add your name in the body\",\n  \"email\": \"anichura2@gmail.com\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}\n// Response\n{\n  \"status\": \"\",\n  \"message\": \"\",\n  \"user\": {\n    \"name\": \"\",\n    \"email\": \"\",\n    \"updated_at\": \"\",\n    \"created_at\": \"\",\n    \"id\": 0,\n    \"isDeletable\": true,\n    \"isEditable\": true\n  },\n  \"token\": \"\"\n}\n\n ```\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Add your name in the body\",\n    \"email\": \"anichur@gmail.oom\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "### API Request\n\nThis is a POST request to log out by submitting the user's credentials in the request body.\n\n#### Request Body\n\n- name (string, required): Add your name in the body\n    \n- email (string, required): [anichur@gmail.oom](https://mailto:anichur@gmail.oom)\n    \n- password (string, required): password\n    \n- password_confirmation (string, required): password\n    \n\n---\n\n### API Response\n\nThe response is in JSON format with a status code of 200.\n\n#### Response Body\n\nThe response body is an empty JSON object.\n\n---\n\n### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```\n\nThis is a POST request to the `{{base_url}}/api/logout` endpoint, which is used to log out a user from the system.\n\n#### Request Body\n\nThe request body should be in JSON format and include the following parameters:\n\n- `name` (string): The name of the user.\n    \n- `email` (string): The email of the user.\n    \n- `password` (string): The user's password.\n    \n- `password_confirmation` (string): Confirmation of the user's password.\n    \n\nExample:\n\n``` json\n{\n  \"name\": \"Add your name in the body\",\n  \"email\": \"anichur@gmail.oom\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}\n\n ```\n\n#### Response\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.\n\n#### Headers\n\nThe request may include headers specific to the application's requirements.\n\n### API Response\n\nThe response to this request is not provided, but it typically indicates the successful logout of the user from the system.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Password Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"current_password\": \"password\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"password"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"admin@gmail.com\",\n    \"token\" : \"031c4cf41a3cdbb06901a4813b1ced893635cf37078532d334b4bd60f5ba2ad5\",\n    \"password\" : \"password\",\n    \"password_confirmation\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reset-password"
+							]
+						},
+						"description": "### Reset Password\n\nThis endpoint allows the user to reset their password by submitting the required information.\n\n#### Request Body\n\n- email (text, required): The email address associated with the user's account.\n    \n- password (text, required): The new password for the user's account.\n    \n- password_confirmation (text, required): Confirmation of the new password.\n    \n- code (text, required): The verification code for password reset.\n    \n\n#### Example\n\n``` json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"new_password\",\n  \"password_confirmation\": \"new_password\",\n  \"code\": \"123456\"\n}\n\n ```\n\n#### Response\n\n- Status: 200 OK\n    \n- {\"message\": \"\"}\n    \n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forgot-password"
+							]
+						},
+						"description": "### API Request\n\nThis is a POST request to `{{base_url}}/api/forgot-password` to initiate the process of resetting the password. The request body should be in JSON format and include the `email` parameter with the user's email address.\n\n#### Request Body\n\n- email (string, required): The email address of the user requesting the password reset.\n    \n\n### Response\n\nUpon successful execution, the API returns a `200 OK` response with a JSON object in the response body.\n\n#### Response Body\n\n- message (string): A message indicating the outcome of the password reset process.\n    \n\n#### Response Headers\n\n- Content-Type: application/json\n    \n\n#### Example\n\n``` json\n// Request Body\n{\n  \"email\": \"user@example.com\"\n}\n// Response\n{\n  \"message\": \"Password reset instructions sent to the provided email address.\"\n}\n\n ```\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "bn",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### GET /api/profile\n\nThis endpoint is used to retrieve profile information.\n\n#### Request\n\n- Method: GET\n    \n- Base URL: {{base_url}}\n    \n- Headers:\n    \n    - Content-Type: application/json\n        \n\n#### Response\n\n- Status: 200 OK\n    \n- Content-Type: application/json\n    \n- { \"id\": 0, \"name\": \"\", \"email\": \"\", \"email_verified_at\": null, \"status\": \"\", \"gender\": null, \"is_admin\": 0, \"deleted_at\": null, \"created_at\": \"\", \"updated_at\": \"\", \"isDeletable\": true, \"isEditable\": true}\n    \n\nThis response includes profile information such as `id`, `name`, `email`, `status`, `gender`, `is_admin`, `deleted_at`, `created_at`, `updated_at`, `isDeletable`, and `isEditable`.\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Profile Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"Admin User Edited\",\n    \"email\": \"admin@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "bn",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### GET /api/profile\n\nThis endpoint is used to retrieve profile information.\n\n#### Request\n\n- Method: GET\n    \n- Base URL: {{base_url}}\n    \n- Headers:\n    \n    - Content-Type: application/json\n        \n\n#### Response\n\n- Status: 200 OK\n    \n- Content-Type: application/json\n    \n- { \"id\": 0, \"name\": \"\", \"email\": \"\", \"email_verified_at\": null, \"status\": \"\", \"gender\": null, \"is_admin\": 0, \"deleted_at\": null, \"created_at\": \"\", \"updated_at\": \"\", \"isDeletable\": true, \"isEditable\": true}\n    \n\nThis response includes profile information such as `id`, `name`, `email`, `status`, `gender`, `is_admin`, `deleted_at`, `created_at`, `updated_at`, `isDeletable`, and `isEditable`.\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Profile Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "### GET /api/profile\n\nThis endpoint is used to retrieve profile information.\n\n#### Request\n\n- Method: GET\n    \n- Base URL: {{base_url}}\n    \n- Headers:\n    \n    - Content-Type: application/json\n        \n\n#### Response\n\n- Status: 200 OK\n    \n- Content-Type: application/json\n    \n- { \"id\": 0, \"name\": \"\", \"email\": \"\", \"email_verified_at\": null, \"status\": \"\", \"gender\": null, \"is_admin\": 0, \"deleted_at\": null, \"created_at\": \"\", \"updated_at\": \"\", \"isDeletable\": true, \"isEditable\": true}\n    \n\nThis response includes profile information such as `id`, `name`, `email`, `status`, `gender`, `is_admin`, `deleted_at`, `created_at`, `updated_at`, `isDeletable`, and `isEditable`.\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Articals",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/articles?page=1&limit=2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artical",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/articles/trumps-threat-to-defund-all-us-public-media-has-npr-and-pbs-on-the-back-foot",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"trumps-threat-to-defund-all-us-public-media-has-npr-and-pbs-on-the-back-foot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Personalized Feed",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/feed",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Preferences",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/preferences",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/categories",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sources",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/v1/sources",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"sources"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,125 +1,158 @@
 # News Aggregator Platform
 
-## 🏗 Architecture
-- Backend: Laravel 10.x API
-- Frontend: React 18 with TypeScript
-- Database: MySQL/PostgreSQL
-- Cache: Redis
-- API Sources: NewsAPI, Guardian, Reuters
+A full-stack news aggregation platform built with Laravel 10 (PHP 8.2) and React.js.
 
-## 📁 Project Structure
-```
-├── backend/               # Laravel API
-│   ├── app/              # Core application code
-│   ├── database/         # Migrations & seeds
-│   └── tests/           # Backend tests
-└── frontend/            # React application
-    ├── src/            # Source files
-    ├── public/        # Static assets
-    └── tests/        # Frontend tests
-```
+## 🚀 Tech Stack
+
+### Backend
+
+- PHP 8.2
+- Laravel 10
+- MySQL 8.0
+- Redis
+- Docker
+
+### Frontend
+
+- React.js
+- Vite
+- Node.js 18
+- Docker
+
+## 🛠 Prerequisites
+
+- Docker & Docker Compose
+- Git
 
 ## ⚡️ Quick Start
 
-### Backend Setup
+1. **Clone the Repository**
+
 ```bash
-cd backend
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan serve
+git clone <repository-url>
+cd news-aggregator
 ```
 
-### Frontend Setup
+2. **Environment Setup**
+
 ```bash
-cd frontend
-npm install
-cp .env.example .env.local
-npm run dev
+# Backend environment
+cp backend/.env.example backend/.env
+
+# Frontend environment
+cp frontend/.env.example frontend/.env
 ```
 
-## 🔑 Environment Setup
+3. **Configure Environment Variables**
 
-### Backend (.env)
-```
+Backend `.env`:
+
+```env
+APP_URL=http://localhost:8000
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=news_aggregator
 DB_USERNAME=root
-DB_PASSWORD=
+DB_PASSWORD=secret
 
-NEWS_API_KEY=your_key
-GUARDIAN_API_KEY=your_key
-REUTERS_API_KEY=your_key
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+CORS_ALLOWED_ORIGINS=http://localhost:3000
 ```
 
-### Frontend (.env)
-```
+Frontend `.env`:
+
+```env
 VITE_API_URL=http://localhost:8000
 VITE_APP_NAME="News Aggregator"
 ```
 
-## 🚀 Development
+4. **Start Docker Containers**
 
-### Backend Commands
 ```bash
-php artisan app:scrape-articles    # Fetch news
-php artisan test                   # Run tests
-php artisan serve                  # Start API server
+docker-compose up -d --build
 ```
 
-### Frontend Commands
+5. **Setup Backend**
+
 ```bash
-npm run dev     # Start dev server
-npm run build   # Build for production
-npm run test    # Run tests
+# Install dependencies
+docker-compose exec backend composer install
+
+# Generate application key
+docker-compose exec backend php artisan key:generate
+
+# Run migrations
+docker-compose exec backend php artisan migrate
+
+# Cache configuration
+docker-compose exec backend php artisan config:cache
 ```
 
-## 📝 API Routes
+6. **Access Applications**
 
-### Articles
-```
-GET     /api/articles
-GET     /api/articles/{id}
-GET     /api/articles/search
-```
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:8000](http://localhost:8000)
 
-### Categories
-```
-GET     /api/categories
-GET     /api/categories/{id}/articles
-```
+## 🐳 Docker Commands
 
-### Authentication
-```
-POST    /api/auth/login
-POST    /api/auth/register
-POST    /api/auth/logout
-```
-
-## 🧪 Testing
 ```bash
-# Backend tests
-cd backend && php artisan test
+# Start containers
+docker-compose up -d
 
-# Frontend tests
-cd frontend && npm test
+# Stop containers
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Backend container shell
+docker-compose exec backend sh
+
+# Frontend container shell
+docker-compose exec frontend sh
+
+# Clear cache
+docker-compose exec backend php artisan cache:clear
 ```
 
-## 📦 Production Build
+## 📁 Project Structure
+
+```
+news-aggregator/
+├── backend/             # Laravel API
+│   ├── app/
+│   ├── database/
+│   ├── routes/
+│   └── Dockerfile
+├── frontend/            # React Application
+│   ├── src/
+│   ├── public/
+│   └── Dockerfile
+└── docker-compose.yml
+```
+
+## 🔧 Development
+
+### Backend Development
+
 ```bash
-# Backend
-cd backend
-composer install --optimize-autoloader --no-dev
-php artisan config:cache
-php artisan route:cache
+# Run tests
+docker-compose exec backend php artisan test
 
-# Frontend
-cd frontend
-npm run build
+# Create new migration
+docker-compose exec backend php artisan make:migration create_table_name
+
+# Fresh migration with seeders
+docker-compose exec backend php artisan migrate:fresh --seed
 ```
 
-## 🔐 License
-MIT
+### Frontend Development
+
+```bash
+# Install new package
+docker-compose exec frontend npm install package-name
+```

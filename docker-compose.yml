@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+      - redis
+    environment:
+      APP_NAME: Laravel
+      APP_ENV: local
+      APP_KEY: base64:W+lOvI8SdrAmM1U4sm6XmFJXO98xHC1lAjWzPWAc5u8=
+      APP_DEBUG: true
+      APP_TIMEZONE: UTC
+      APP_URL: http://backend.test
+      FRONTEND_URL: http://frontend:3000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: innoscripta
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      REDIS_HOST: redis
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      MAIL_MAILER: log
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_USERNAME: null
+      MAIL_PASSWORD: null
+      MAIL_FROM_ADDRESS: hello@example.com
+      MAIL_FROM_NAME: Laravel
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://backend:8000
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: innoscripta
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025" # Web interface
+      - "1025:1025" # SMTP server
+
+volumes:
+  mysql_data:
+  redis_data:
