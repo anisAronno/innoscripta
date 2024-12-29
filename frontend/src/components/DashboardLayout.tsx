@@ -1,18 +1,12 @@
 import { ReactNode } from 'react';
 import Footer from './Footer';
 import Header from './Header';
-import Logout from './Logout';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow mx-auto w-full px-3 py-4 mt-16 relative">
-        <div className="absolute top-4 right-4">
-          <Logout />
-        </div>
-        {children}
-      </main>
+      <main className="flex-grow mx-auto w-full mt-16">{children}</main>
       <Footer />
     </div>
   );

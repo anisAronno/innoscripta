@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import ArticleDetailView from '../components/blog/ArticleDetailView';
-import Dashboard from '../pages/dashboard/Dashboard';
 import Error from '../pages/Error';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import DashboardRoute from './DashboardRoute';
-import FrontendRoute from './FrontendRoute';
 import GuestRoute from './GuestRoute';
+import Preferences from '../pages/PreferencesManager';
+import Profile from '../pages/Profile';
 
 const routes: RouteObject[] = [
   {
@@ -16,17 +16,21 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <FrontendRoute component={Home} />,
+        element: <DashboardRoute component={Home} />,
       },
       {
         path: 'articles/:slug',
-        element: <FrontendRoute component={ArticleDetailView} />,
+        element: <DashboardRoute component={ArticleDetailView} />,
+      },
+      {
+        path: 'preferences',
+        element: <DashboardRoute component={Preferences} />,
+      },
+      {
+        path: 'profile',
+        element: <DashboardRoute component={Profile} />,
       },
     ],
-  },
-  {
-    path: 'dashboard',
-    element: <DashboardRoute component={Dashboard} />,
   },
   {
     path: 'login',

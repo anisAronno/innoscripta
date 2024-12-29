@@ -83,7 +83,7 @@ const PreferencesManager: React.FC = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-10">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold text-gray-800">News Preferences</h2>
         <button

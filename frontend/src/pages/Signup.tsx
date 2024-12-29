@@ -23,7 +23,7 @@ const Register: React.FC = () => {
       setError('');
       setLoading(true);
       await signup(displayName, email, password,  confirmPassword);
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
       setError('Failed to create an account.');
       console.error('Registration failed:', error);

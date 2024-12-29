@@ -18,7 +18,7 @@ export const BlogList: React.FC = () => {
         try {
             setLoading(true);
             setError(null);
-            const response = await api.get<ApiResponse>(`/api/v1/articles?page=${pageNumber}`);
+            const response = await api.get<ApiResponse>(`/api/v1/feed?page=${pageNumber}`);
             const newArticles = response.data.data;
             
             setArticles(prev => pageNumber === 1 ? newArticles : [...prev, ...newArticles]);

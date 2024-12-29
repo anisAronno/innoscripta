@@ -8,7 +8,7 @@ const GuestRoute: FC<RouteProps> = ({ component: Component }) => {
   const { currentUser } = useAuth();
 
   if (currentUser) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (
